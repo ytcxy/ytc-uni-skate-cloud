@@ -18,7 +18,6 @@
 	<view class="content">
 		<button @click="navigate2add()">跳转 addDemo Page</button>
 		<button @click="navigate2addTrick()">新增动作名称</button>
-		<button @click="getUserInfo()">获取mysql数据</button>
 	</view>
 
 </template>
@@ -49,7 +48,7 @@
 			getUserTrick() {
 				let userTrick = [];
 				console.log('yyyyy');
-				this.$http('/userTrick/info', 'GET', {userId:11111}).then(res => {
+				this.$http('/userTrick/info', 'GET', {userId:this.userId}).then(res => {
 					console.log('request success ', res);
 					userTrick = res.data;
 					this.initRange(userTrick);

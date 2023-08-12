@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_test = require("../../common/test.js");
+const api_user = require("../../api/user.js");
 const _sfc_main = {
   data() {
     return {
@@ -10,7 +12,17 @@ const _sfc_main = {
       chartData: {},
       dailyCountList: [],
       opts: {
-        color: ["#1890FF", "#91CB74", "#FAC858", "#EE6666", "#73C0DE", "#3CA272", "#FC8452", "#9A60B4", "#ea7ccc"],
+        color: [
+          "#1890FF",
+          "#91CB74",
+          "#FAC858",
+          "#EE6666",
+          "#73C0DE",
+          "#3CA272",
+          "#FC8452",
+          "#9A60B4",
+          "#ea7ccc"
+        ],
         padding: [15, 15, 0, 5],
         enableScroll: false,
         enableMarkLine: false,
@@ -24,12 +36,10 @@ const _sfc_main = {
           disabled: true,
           disableGrid: true,
           showTitle: true,
-          data: [
-            {
-              min: 0,
-              title: "本周练习量"
-            }
-          ]
+          data: [{
+            min: 0,
+            title: "本周练习量"
+          }]
         },
         extra: {
           column: {
@@ -41,12 +51,10 @@ const _sfc_main = {
             barBorderRadius: [6, 6, 6, 6]
           },
           markLine: {
-            data: [
-              {
-                value: 21,
-                showLabel: false
-              }
-            ]
+            data: [{
+              value: 21,
+              showLabel: false
+            }]
           }
         }
       }
@@ -61,20 +69,23 @@ const _sfc_main = {
       setTimeout(() => {
         let res = {
           categories: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-          series: [
-            {
-              name: "练习数量",
-              data: [35, 36, 31, 33, 13, 34, 5]
-            }
-          ]
+          series: [{
+            name: "练习数量",
+            data: [35, 36, 31, 33, 13, 34, 5]
+          }]
         };
         this.chartData = JSON.parse(JSON.stringify(res));
       }, 10);
+      this.testdb();
     },
     testdb() {
+      common_test.test.api();
       var date = /* @__PURE__ */ new Date();
       date.setMonth(date.getMonth() - 10);
-      this.$http("/trickDetail/info", "POST", { userId: 11111, beginTime: date.getTime().toString() }).then((res) => {
+      this.$http("/trickDetail/info", "POST", {
+        userId: 11111,
+        beginTime: date.getTime().toString()
+      }).then((res) => {
         console.log("request success ", res);
         this.dailyCountList = res.data.trickList;
       }).catch((err) => {
@@ -84,6 +95,45 @@ const _sfc_main = {
         });
       });
       return;
+    },
+    async getUserId() {
+      const that = this;
+      try {
+        const value = await common_vendor.index.getStorageSync("userId");
+        that.userId = value;
+        console.log("value ", value);
+      } catch (e) {
+        console.log("get userId error", e);
+      }
+      console.log("this.userId", this.userId);
+    },
+    wxLogin() {
+      api_user.user.api();
+      const that = this;
+      common_vendor.index.login({
+        provider: "weixin",
+        onlyAuthorize: true,
+        // 微信登录仅请求授权认证
+        success: function(event) {
+          const {
+            code
+          } = event;
+          console.log("wx event ", event);
+          that.$http("/wx/login", "GET", {
+            code
+          }).then((res) => {
+            console.log("res ", res);
+            common_vendor.index.setStorageSync("token", res.data.token);
+            common_vendor.index.setStorageSync("userId", res.data.userId);
+          }).catch((err) => {
+            console.log("err ", err);
+          });
+        },
+        fail: function(err) {
+          console.log("uni.login error ", err);
+        }
+      });
+      console.log("loginUUUUUUUUU");
     }
   },
   mounted() {
@@ -113,7 +163,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       opts: $data.opts
     }),
     d: common_vendor.o((...args) => $options.testdb && $options.testdb(...args)),
-    e: common_vendor.f($data.dailyCountList, (item, index, i0) => {
+    e: common_vendor.o((...args) => $options.wxLogin && $options.wxLogin(...args)),
+    f: common_vendor.o((...args) => $options.getUserId && $options.getUserId(...args)),
+    g: common_vendor.f($data.dailyCountList, (item, index, i0) => {
       return {
         a: common_vendor.t(item),
         b: "1cf27b2a-3-" + i0,

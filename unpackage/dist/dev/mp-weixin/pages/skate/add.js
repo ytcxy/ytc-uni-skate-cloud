@@ -24,7 +24,7 @@ const _sfc_main = {
     getUserTrick() {
       let userTrick = [];
       console.log("yyyyy");
-      this.$http("/userTrick/info", "GET", { userId: 11111 }).then((res) => {
+      this.$http("/userTrick/info", "GET", { userId: this.userId }).then((res) => {
         console.log("request success ", res);
         userTrick = res.data;
         this.initRange(userTrick);
@@ -149,8 +149,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     h: common_vendor.o(($event) => $options.addUserTrick()),
     i: common_vendor.o(($event) => $options.navigate2add()),
-    j: common_vendor.o(($event) => $options.navigate2addTrick()),
-    k: common_vendor.o(($event) => _ctx.getUserInfo())
+    j: common_vendor.o(($event) => $options.navigate2addTrick())
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/ytccc/code/my/ytc-skate/ytc-uni-skate-cloud/pages/skate/add.vue"]]);

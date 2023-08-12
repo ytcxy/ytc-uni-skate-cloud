@@ -21,16 +21,41 @@
 				userId: "ytc123",
 			};
 		},
-		
+
 		methods: {
 			input(e) {
 				// console.log('输入内容：', e);
 			},
+			getUserTrick() {
+				return new Promise((resolve, reject) => {
+					this.$http('/userTrick/info', 'GET', {
+							userId: this.userId
+						})
+						.then(res => {
+							console.log('request success ', res);
+							resolve(res.data);
+						})
+						.catch(err => {
+							console.log('userTrick error');
+							reject(err);
+						});
+				});
+			},
+
 			async addDb() {
 				try {
-					
-					
-					
+					const userTricks = await this.getUserTrick();
+
+					for (const userTrick of userTricks) { // 使用of替代in来迭代数组
+						if (this.trickName === userTrick.trick) {
+							uni.showModal({
+								content: '动作名称重复',
+								showCancel: false
+							});
+							return;
+						}
+					}
+
 					const res = await this.$http('/userTrick/add', 'POST', {
 						userId: this.userId,
 						trickName: this.trickName
