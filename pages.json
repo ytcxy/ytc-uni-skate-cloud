@@ -1,0 +1,95 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/skate/add",
+			"style": {
+				"navigationBarTitleText": "新增练习记录"
+			}
+		}, 
+		{
+			"path": "pages/skate/addTrick",
+			"style": {
+				"navigationBarTitleText": "新增动作"
+			}
+		}, 		
+		
+		{
+			"path": "pages/test/test1",
+			"style": {
+				"navigationBarTitleText": "test1",
+				"enablePullDownRefresh": false
+			}
+
+		}, 
+		{
+			"path": "pages/test/test2",
+			"style": {
+				"navigationBarTitleText": "test2",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/skate/addDemo",
+			"style": {
+				"navigationBarTitleText": "addDemo",
+				"enablePullDownRefresh": false
+			}
+		
+		}
+	],
+	"tabBar": {
+		"color": "#999999",
+		"selectedColor": "#343434",
+		"borderStyle": "white",
+		"backgroundColor": "#F7F7F7",
+		"fontSize": "16px",
+		"iconWidth": "30px",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/tabbar/home.png",
+				"selectedIconPath": "static/images/tabbar/home_selected.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/skate/add",
+				"iconPath": "static/images/tabbar/add.png",
+				"selectedIconPath": "static/images/tabbar/add_selected.png",
+				"text": "添加"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/images/tabbar/my.png",
+				"selectedIconPath": "static/images/tabbar/my_selected.png",
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
+	}
+}

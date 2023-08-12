@@ -1,0 +1,1 @@
+<view><text> test11111 </text><button bindtap="{{a}}">微信uni.getUserProfile 登录</button></view>

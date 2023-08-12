@@ -1,0 +1,1 @@
+<view class="content"><button bindtap="{{a}}">请求云对象的方法</button><button bindtap="{{b}}">请求数据库的方法</button><button bindtap="{{c}}">插入数据库的方法</button><button bindtap="{{d}}">跳转 test1 Page</button><button bindtap="{{e}}">跳转 test2 Page</button></view><view><text>{{f}}</text></view><view><text>{{g}}</text></view>

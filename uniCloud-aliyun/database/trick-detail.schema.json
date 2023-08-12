@@ -1,0 +1,59 @@
+{
+	"bsonType": "object",
+	"required": [],
+	"permission": {
+		"read":true,
+		"create":true
+	},
+	"properties": {
+		"_id": {
+			"description": "存储文档 ID（用户 ID），系统自动生成"
+		},
+		"user_id": {
+			"bsonType": "string",
+			"title": "用户标识",
+			"description": "用户标识",
+			"trim": "both"
+		},
+		"trick_id": {
+			"bsonType": "string",
+			"title": "动作编号",
+			"description": "动作编号"
+		},
+		"trick_name": {
+			"bsonType": "string",
+			"title": "动作名称",
+			"description": "动作名称",
+			"trim": "both"
+		},
+		"count": {
+			"bsonType": "int",
+			"title": "动作次数",
+			"description": "动作次数"
+		},
+		"nickname": {
+			"bsonType": "string",
+			"title": "昵称",
+			"description": "用户昵称",
+			"trim": "both"
+		},
+		"avatar": {
+			"bsonType": "string",
+			"title": "头像地址",
+			"description": "头像地址",
+			"trim": "both"
+		},
+		"add_date": {
+			"bsonType": "timestamp",
+			"description": "添加时间",
+			"forceDefaultValue": {
+				"$env": "now"
+			}
+		},
+		"update_date": {
+			"bsonType": "timestamp",
+			"description": "修改时间"
+		}
+	},
+	"version": "1.0.3"
+}

@@ -1,0 +1,1 @@
+<view><text>test22222</text><button bindtap="{{a}}">加一加</button></view><view><text>num = {{b}}</text></view>
