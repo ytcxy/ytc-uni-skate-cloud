@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_context = require("../../common/context.js");
 const _sfc_main = {
   data() {
     return {
@@ -14,10 +15,14 @@ const _sfc_main = {
   // 	this.init();
   // 	console.log("ready  !");
   // },
-  onShow() {
-    console.log("show  !");
-  },
-  onLoad() {
+  // onShow() {
+  // 	console.log("show  !!!!!!!!!!!!!!!!");
+  // },
+  // onLoad() {
+  // 	this.getUserTrick();
+  // },
+  mounted() {
+    this.userId = common_context.context.getUserId();
     this.getUserTrick();
   },
   methods: {

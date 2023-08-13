@@ -2,13 +2,16 @@
 const common_vendor = require("../../common/vendor.js");
 const common_test = require("../../common/test.js");
 const api_user = require("../../api/user.js");
+const common_context = require("../../common/context.js");
+require("../../api/request.js");
+require("../../api/config.js");
 const _sfc_main = {
   data() {
     return {
       data: {
         practiceCount: 10
       },
-      userId: "ytc123",
+      userId: "",
       chartData: {},
       dailyCountList: [],
       opts: {
@@ -83,7 +86,7 @@ const _sfc_main = {
       var date = /* @__PURE__ */ new Date();
       date.setMonth(date.getMonth() - 10);
       this.$http("/trickDetail/info", "POST", {
-        userId: 11111,
+        userId: this.userId,
         beginTime: date.getTime().toString()
       }).then((res) => {
         console.log("request success ", res);
@@ -126,18 +129,36 @@ const _sfc_main = {
             common_vendor.index.setStorageSync("token", res.data.token);
             common_vendor.index.setStorageSync("userId", res.data.userId);
           }).catch((err) => {
-            console.log("err ", err);
+            console.log("error ", err);
           });
         },
         fail: function(err) {
           console.log("uni.login error ", err);
         }
       });
-      console.log("loginUUUUUUUUU");
+      this.userId = this.getUserId();
+      console.log("loginUUUUUUUUU", this.userId);
     }
   },
   mounted() {
     this.getServerData();
+    const userId = common_context.context.getUserId();
+    const that = this;
+    if (userId === "") {
+      common_vendor.index.showModal({
+        title: "微信登录",
+        success: function(res) {
+          if (res.confirm) {
+            that.wxLogin();
+            console.log("用户点击确定");
+          } else if (res.cancel) {
+            console.log("用户点击取消");
+          }
+        }
+      });
+    }
+    console.log("userIddddd", userId);
+    this.userId = userId;
   }
 };
 if (!Array) {

@@ -8,12 +8,15 @@
 
 	<view>
 		<button @click="addDb()">保存</button>
+		<button @click="test()"> testApi</button>
 
 	</view>
 
 </template>
 
 <script>
+	import context from '@/common/context.js';
+	
 	export default {
 		data() {
 			return {
@@ -21,10 +24,16 @@
 				userId: "ytc123",
 			};
 		},
-
+		mounted() {
+			this.userId = context.getUserId();
+		},
 		methods: {
 			input(e) {
 				// console.log('输入内容：', e);
+			},
+			test() {
+				const userId = context.getUserId();
+				console.log("userId ", userId);
 			},
 			getUserTrick() {
 				return new Promise((resolve, reject) => {

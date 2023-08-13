@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_context = require("../../common/context.js");
 const _sfc_main = {
   data() {
     return {
@@ -7,8 +8,15 @@ const _sfc_main = {
       userId: "ytc123"
     };
   },
+  mounted() {
+    this.userId = common_context.context.getUserId();
+  },
   methods: {
     input(e) {
+    },
+    test() {
+      const userId = common_context.context.getUserId();
+      console.log("userId ", userId);
     },
     getUserTrick() {
       return new Promise((resolve, reject) => {
@@ -76,7 +84,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       title: "动作名称",
       type: "line"
     }),
-    e: common_vendor.o(($event) => $options.addDb())
+    e: common_vendor.o(($event) => $options.addDb()),
+    f: common_vendor.o(($event) => $options.test())
   };
 }
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["render", _sfc_render], ["__file", "/Users/ytccc/code/my/ytc-skate/ytc-uni-skate-cloud/pages/skate/addTrick.vue"]]);

@@ -46,6 +46,7 @@
 	} from "vue";
 	import test from '@/common/test.js';
 	import user from '@/api/user.js';
+	import context from '@/common/context.js';
 
 
 
@@ -55,7 +56,7 @@
 				data: {
 					practiceCount: 10
 				},
-				userId: "ytc123",
+				userId: "",
 				chartData: {},
 				dailyCountList: [],
 				opts: {
@@ -120,12 +121,11 @@
 			},
 			testdb() {
 				test.api();
-
 				var date = new Date();
 				date.setMonth(date.getMonth() - 10);
 
 				this.$http("/trickDetail/info", "POST", {
-						userId: 11111,
+						userId: this.userId,
 						beginTime: date.getTime().toString()
 					})
 					.then(res => {
@@ -173,7 +173,7 @@
 							uni.setStorageSync('token', res.data.token);
 							uni.setStorageSync('userId', res.data.userId);
 						}).catch(err => {
-							console.log('err ', err);
+							console.log('error ', err);
 						});
 					},
 					fail: function(err) {
@@ -182,12 +182,30 @@
 						// err.code是错误码
 					}
 				});
-				console.log('loginUUUUUUUUU');
+				this.userId = this.getUserId();
+				console.log('loginUUUUUUUUU', this.userId);
 				// this.getUserInfo(); 
 			}
 		},
 		mounted() {
 			this.getServerData();
+			const userId = context.getUserId();
+			const that = this;
+			if (userId === "") {
+				uni.showModal({
+					title: '微信登录',
+					success: function (res) {
+						if (res.confirm) {
+							that.wxLogin();
+							console.log('用户点击确定');
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			}
+			console.log('userIddddd', userId);
+			this.userId = userId;
 		}
 	};
 </script>

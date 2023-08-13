@@ -23,6 +23,7 @@
 </template>
 
 <script>
+	import context from '@/common/context.js';
 	export default {
 		data() {
 			return {
@@ -37,12 +38,16 @@
 		// 	this.init();
 		// 	console.log("ready  !");
 		// },
-		onShow() {
-			console.log("show  !");
-		},
-		onLoad() {
-			this.getUserTrick();
+		// onShow() {
+		// 	console.log("show  !!!!!!!!!!!!!!!!");
+		// },
+		// onLoad() {
+		// 	this.getUserTrick();
 		
+		// },
+		mounted() {
+			this.userId = context.getUserId();
+			this.getUserTrick();
 		},
 		methods: {
 			getUserTrick() {

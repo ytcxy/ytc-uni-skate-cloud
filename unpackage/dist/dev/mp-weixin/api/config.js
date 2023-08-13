@@ -4,15 +4,16 @@ const config = {
   //接口请求域名配置
   api: function() {
     let curVersion = common_vendor.index.getAccountInfoSync().miniProgram.envVersion;
+    console.log("curVersion ", curVersion);
     switch (curVersion) {
       case "develop":
-        return "http://localhost:9999";
+        return "http://192.168.31.192:9999";
       case "trial":
-        return "http://xxx.xxx.xxx.xxx:xxx";
+        return "https://ytc.v2.idcfengye.com";
       case "release":
-        return "http://xxx.xxx.xxx.xxx:xxx";
+        return "https://ytc.v2.idcfengye.com";
       default:
-        return "http://xxx.xxx.xxx.xxx:xxx";
+        return "https://ytc.v2.idcfengye.com";
     }
   }
 };
